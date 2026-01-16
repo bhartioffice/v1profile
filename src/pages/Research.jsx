@@ -20,6 +20,14 @@ import {
 const Research = () => {
   const [activeTab, setActiveTab] = useState("research");
 
+  // UX FIX: Track which card is flipped on mobile
+  const [flippedIndex, setFlippedIndex] = useState(null);
+
+  const handleCardClick = (index) => {
+    // Toggle: if clicking the same one, close it. If new one, open it.
+    setFlippedIndex(flippedIndex === index ? null : index);
+  };
+
   // Local data for DPIIT & Mentorship
   const dpiitTimeline = [
     {
@@ -98,22 +106,28 @@ const Research = () => {
       {/* --- RESEARCH TAB --- */}
       {activeTab === "research" && (
         <section className="tab-content container active">
-          {" "}
-          {/* REMOVED fade-in classes */}
           <h3 className="section-subtitle">Fields of Inquiry & Impact</h3>
-          <p className="center-text-sm">
-            My research program is centered at the intersection of international
-            economics, policy reform, and intellectual property.
-          </p>
           <div className="flip-grid">
-            {" "}
-            {/* REMOVED fade-in classes */}
-            {researchAreas.map((area) => (
-              <div className="flip-card" key={area.id}>
-                <div className="flip-inner">
+            {researchAreas.map((area, index) => (
+              <div
+                className="flip-card"
+                key={area.id}
+                onClick={() => handleCardClick(index)} // Add Click Handler
+              >
+                {/* Add 'flipped' class conditionally */}
+                <div
+                  className={`flip-inner ${
+                    flippedIndex === index ? "flipped" : ""
+                  }`}
+                >
                   <div className="flip-front">
                     <i className={`fa-solid ${area.icon}`}></i>
                     <h4>{area.title}</h4>
+                    {/* Visual cue for mobile */}
+                    <span className="mobile-tap-hint">
+                      <i className="fa-solid fa-arrow-rotate-right"></i> Tap to
+                      flip
+                    </span>
                   </div>
                   <div className="flip-back">
                     <h4>{area.title}</h4>
