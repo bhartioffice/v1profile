@@ -1,0 +1,1 @@
+import{j as o}from"./index-D3C1KUq_.js";/* empty css               */const p=({children:s,variant:a="primary",href:t,onClick:e,className:m="",download:b=!1,target:r})=>{const n=`btn btn-${a} ${m}`;return t?o.jsx("a",{href:t,className:n,download:b,target:r,rel:r==="_blank"?"noreferrer":void 0,children:s}):o.jsx("button",{className:n,onClick:e,children:s})};export{p as B};
